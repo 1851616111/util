@@ -1,0 +1,79 @@
+{
+  "databases": [
+    {
+      "label": "user",
+      "host": "10.1.235.98",
+      "port": 5432,
+      "credentials": {
+        "user": "tantan007",
+        "password": "123456"
+      },
+      "maxPoolSize": 200,
+      "instances": [
+            {
+              "name": "db_user_01",
+              "tables":["t_user_01","t_user_02"]
+            },
+            {
+              "name": "db_user_02",
+              "tables":["t_user_01","t_user_02"]
+            }
+      ]
+    },
+    {
+      "label": "relationship_like",
+      "host": "10.1.235.98",
+      "port": 5432,
+      "credentials": {
+        "user": "tantan007",
+        "password": "123456"
+      },
+      "maxPoolSize": 300,
+      "instances": [
+        {
+          "name": "db_relationship_like_01",
+          "tables":["t_relationship_like_01","t_relationship_like_02"]
+        }
+      ]
+    },
+    {
+      "label": "relationship_dislike",
+      "host": "10.1.235.98",
+      "port": 5432,
+      "credentials": {
+        "user": "tantan007",
+        "password": "123456"
+      },
+      "maxPoolSize": 300,
+      "instances": [
+        {
+          "name": "db_relationship_dislike_01",
+          "tables":["t_relationship_dislike_01","t_relationship_dislike_02"]
+        }
+      ]
+    },
+    {
+      "label": "relationship_match",
+      "host": "10.1.235.98",
+      "port": 5432,
+      "credentials": {
+        "user": "tantan007",
+        "password": "123456"
+      },
+      "maxPoolSize": 300,
+      "instances": [
+        {
+          "name": "db_relationship_match_01",
+          "tables":["t_relationship_match_01","t_relationship_match_02"]
+        }
+      ]
+    }
+  ],
+  "idcontroller":{
+    "host": "localhost",
+    "port": 8081
+  },
+  "service": {
+    "port": 8080
+  }
+}
