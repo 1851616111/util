@@ -1,19 +1,19 @@
-package redis
+package util
 
 import (
-	"log"
-	"time"
-
-	c "github.com/asiainfoLDP/datafoundry_oauth2/util/cache"
 	"github.com/garyburd/redigo/redis"
+	"time"
 )
 
-var (
-	REDIS_POOL *redis.Pool
-)
+var cacher Cache
 
-func createPool(server, auth string) *redis.Pool {
-	return &redis.Pool{
+type Cache interface {
+	Get(key string) ([]byte, error)
+	Set(key string, data []byte) error
+}
+
+func createPool(server, auth string) Cache {
+	return &cache{pool: &redis.Pool{
 		MaxIdle:     10,
 		MaxActive:   10,
 		Wait:        true,
@@ -35,40 +35,23 @@ func createPool(server, auth string) *redis.Pool {
 			_, err := c.Do("PING")
 			return err
 		},
-	}
+	}}
 }
 
 type cache struct {
 	pool *redis.Pool
 }
 
-func (p *cache) HCache(key, field interface{}, value []byte) error {
-	go func() {
-		c := p.pool.Get()
-		defer c.Close()
-
-		if _, err := c.Do("HSET", key, field, value); err != nil {
-			log.Println("[HMap Set] err :", err)
-			return
-		}
-
-	}()
-	return nil
-}
-
-func (p *cache) HFetch(key, field interface{}) ([]byte, error) {
+func (p *cache) Get(key string) ([]byte, error) {
 	c := p.pool.Get()
 	defer c.Close()
-
-	b, err := redis.Bytes(c.Do("HGET", key, field))
-	if err != nil && err != redis.ErrNil {
-		return nil, err
-	}
-
-	return b, nil
+	return redis.Bytes(c.Do("GET", key))
 }
 
-func CreateCache(server, auth string) c.Cache {
-	REDIS_POOL = createPool(server, auth)
-	return &cache{pool: REDIS_POOL}
+func (p *cache) Set(key string, data []byte) (err error) {
+	c := p.pool.Get()
+	defer c.Close()
+	_, err = redis.Bytes(c.Do("SET", key, data))
+
+	return
 }
