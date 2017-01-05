@@ -5,8 +5,6 @@ import (
 	"time"
 )
 
-var cacher Cache
-
 type Cache interface {
 	Get(key string) ([]byte, error)
 	Set(key string, data []byte) error
