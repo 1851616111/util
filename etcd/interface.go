@@ -5,7 +5,7 @@ import (
 	"github.com/coreos/go-etcd/etcd"
 )
 
-//addr = ip + port
+//addr = ip:port
 func  NewClient(addr, user, password string) Interface {
 	cli := etcd.NewClient([]string{addr})
 	cli.SetCredentials(user, password)
