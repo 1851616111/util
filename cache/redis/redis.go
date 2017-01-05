@@ -12,7 +12,7 @@ type Cache interface {
 	Set(key string, data []byte) error
 }
 
-func createPool(server, auth string) Cache {
+func CreatePool(server, auth string) Cache {
 	return &cache{pool: &redis.Pool{
 		MaxIdle:     10,
 		MaxActive:   10,
