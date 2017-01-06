@@ -6,7 +6,7 @@ import (
 )
 
 //addr = schema://ip:port
-func  NewClient(addr, user, password string) Interface {
+func NewClient(addr, user, password string) Interface {
 	cli := etcd.NewClient([]string{addr})
 	cli.SetCredentials(user, password)
 	return &storage{cli}
@@ -14,8 +14,10 @@ func  NewClient(addr, user, password string) Interface {
 
 type Interface interface {
 	SetString(key, value string) error
+	CreateObject(key string, obj interface{}) error
 	SetObject(key string, obj interface{}) error
 	GetString(key string) (string, error)
+	DeleteKey(key string, recursive bool) error
 	//getValue(key string) (string, error)
 	//getDir(key string) (*etcd.Response, error)
 	//delete(key string, recursive bool) error
@@ -27,6 +29,15 @@ type storage struct {
 
 func (c *storage) SetString(key, value string) error {
 	if _, err := c.Set(key, value, 0); err != nil {
+		return err
+	}
+	return nil
+}
+
+//CreateObject(key string, obj interface{}) error
+func (c *storage) CreateObject(key string, obj interface{}) error {
+	b, _ := json.Marshal(obj)
+	if _, err := c.Create(key, string(b), 0); err != nil {
 		return err
 	}
 	return nil
@@ -47,6 +58,13 @@ func (c *storage) GetString(key string) (string, error) {
 	}
 
 	return rsp.Node.Value, nil
+}
+
+func (c *storage) DeleteKey(key string, recursive bool) error {
+	if _, err := c.Delete(key, recursive); err != nil {
+		return err
+	}
+	return nil
 }
 
 //func (c *Interface) getValue(key string) (string, error) {
@@ -123,4 +141,3 @@ func (c *storage) GetString(key string) (string, error) {
 //
 //	return false
 //}
-
