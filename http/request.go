@@ -68,18 +68,28 @@ func NewRequest(spec *HttpSpec) (*http.Request, error) {
 		}
 	}
 
+	if spec.BasicAuth != nil {
+		req.SetBasicAuth(spec.BasicAuth.User, spec.BasicAuth.Password)
+	}
+
 	req.Header.Set("Content-Type", string(spec.ContentType))
 
 	return req, nil
 }
 
 type HttpSpec struct {
-	URL         string      `json:"url"`
-	Method      string      `json:"method"`
-	ContentType ContentType `json:"content_type"`
-	URLParams   *Params     `json:"url_params"`
-	BodyParams  *Body       `json:"body_params"`
-	Header 	    map[string]string `json:"header"`
+	URL         string            `json:"url"`
+	Method      string            `json:"method"`
+	ContentType ContentType       `json:"content_type"`
+	URLParams   *Params           `json:"url_params"`
+	BodyParams  *Body             `json:"body_params"`
+	Header      map[string]string `json:"header"`
+	BasicAuth   *BasicAuth        `json:"basicauth"`
+}
+
+type BasicAuth struct {
+	User     string
+	Password string
 }
 
 type Body map[string]interface{}
