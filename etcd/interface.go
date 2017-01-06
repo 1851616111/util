@@ -18,6 +18,8 @@ type Interface interface {
 	SetObject(key string, obj interface{}) error
 	GetString(key string) (string, error)
 	DeleteKey(key string, recursive bool) error
+	WatchKey(prefix string, waitIndex uint64, recursive bool,
+	receiver chan *etcd.Response, stop chan bool) (*etcd.Response, error)
 	//getValue(key string) (string, error)
 	//getDir(key string) (*etcd.Response, error)
 	//delete(key string, recursive bool) error
@@ -65,6 +67,11 @@ func (c *storage) DeleteKey(key string, recursive bool) error {
 		return err
 	}
 	return nil
+}
+
+func (c *storage) WatchKey(prefix string, waitIndex uint64, recursive bool,
+	receiver chan *etcd.Response, stop chan bool) (*etcd.Response, error) {
+	return c.Watch(prefix, waitIndex, recursive, receiver, stop)
 }
 
 //func (c *Interface) getValue(key string) (string, error) {

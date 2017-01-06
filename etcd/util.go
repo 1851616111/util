@@ -3,6 +3,7 @@ package etcd
 import (
 	etcderror "github.com/coreos/etcd/error"
 	"github.com/coreos/go-etcd/etcd"
+	"fmt"
 )
 
 func RangeNodeFunc(node *etcd.Node, fn func(*etcd.Node)) {
@@ -28,10 +29,16 @@ func AlreadyExistErr(err error) bool {
 	if err == nil {
 		return false
 	}
-
 	if e, ok := err.(*etcd.EtcdError); ok && e.ErrorCode == etcderror.EcodeNodeExist {
 		return true
 	}
 
 	return false
+}
+
+func receiver(c chan *etcd.Response, stop chan bool) {
+	for i := 0; i < 10; i++ {
+		fmt.Println(<-c)
+	}
+	stop <- true
 }

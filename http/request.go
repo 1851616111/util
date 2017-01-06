@@ -62,6 +62,12 @@ func NewRequest(spec *HttpSpec) (*http.Request, error) {
 		return nil, err
 	}
 
+	if len(spec.Header) > 0 {
+		for k, v := range spec.Header {
+			req.Header.Set(k, v)
+		}
+	}
+
 	req.Header.Set("Content-Type", string(spec.ContentType))
 
 	return req, nil
@@ -73,6 +79,7 @@ type HttpSpec struct {
 	ContentType ContentType `json:"content_type"`
 	URLParams   *Params     `json:"url_params"`
 	BodyParams  *Body       `json:"body_params"`
+	Header 	    map[string]string `json:"header"`
 }
 
 type Body map[string]interface{}
