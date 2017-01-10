@@ -6,7 +6,7 @@ import (
 )
 
 //[]string OK, []string filter err, error
-func ReadColumn(file string, columnIdx int, filter func(s string) error) ([]string,[]string, error) {
+func ReadColumn(file string, columnIdx int, filter func(s string) error) ([]string, []string, error) {
 	xlFile, err := xlsx.OpenFile(file)
 	if err != nil {
 		return nil, nil, err
