@@ -45,6 +45,10 @@ func ValueToString(rv reflect.Value) string {
 
 		return MapToString(rv)
 
+	case reflect.Interface:
+
+		return ValueToString(rv.Elem())
+
 	default:
 		logrus.Errorf("util.reflect.ValueToString: unknow value type %s\n", rv.Type().Kind().String())
 		return ""
