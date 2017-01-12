@@ -46,8 +46,11 @@ func ValueToString(rv reflect.Value) string {
 		return MapToString(rv)
 
 	case reflect.Interface:
-
-		return ValueToString(rv.Elem())
+		if rv.IsNil() {
+			return ""
+		} else {
+			return ValueToString(rv.Elem())
+		}
 
 	default:
 		logrus.Errorf("util.reflect.ValueToString: unknow value type %s\n", rv.Type().Kind().String())
@@ -95,4 +98,17 @@ func StructToString(rv reflect.Value) string {
 
 	data = append(data, []byte("}")...)
 	return string(data)
+}
+
+func IsSimpleType(rt reflect.Type) bool {
+	switch rt.Kind() {
+	case reflect.Bool, reflect.String,
+		reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64,
+		reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64,
+		reflect.Uintptr, reflect.Float32, reflect.Float64, reflect.Complex64, reflect.Complex128:
+		return true
+
+	default:
+		return false
+	}
 }
