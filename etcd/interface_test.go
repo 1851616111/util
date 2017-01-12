@@ -1,8 +1,8 @@
 package etcd
 
 import (
-	"testing"
 	"github.com/coreos/go-etcd/etcd"
+	"testing"
 )
 
 var cli Interface
@@ -12,7 +12,7 @@ func TestNewClient(t *testing.T) {
 }
 
 func TestStorage_WatchKey(t *testing.T) {
-	go  func (){
+	go func() {
 		ch := make(chan *etcd.Response, 10)
 		stop := make(chan bool, 1)
 

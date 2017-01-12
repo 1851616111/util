@@ -14,7 +14,7 @@ type ArrayParser struct {
 func NewArrayParser(b []byte) *ArrayParser {
 	var err error
 	if len(b) < 2 || b[0] != '{' || b[len(b)-1] != '}' {
-		err = fmt.Errorf("pg: can't parse array: %s", string(b))
+		err = fmt.Errorf("pg: can'test parse array: %s", string(b))
 	} else {
 		b = b[1 : len(b)-1]
 	}

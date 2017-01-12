@@ -426,7 +426,7 @@ var _ = Describe("scanning unknown column", func() {
 
 		var test Test
 		_, err := db.QueryOne(&test, "SELECT 1 AS col1, 2 AS col2")
-		Expect(err).To(MatchError(`pg: can't find column col2 in model Test`))
+		Expect(err).To(MatchError(`pg: can'test find column col2 in model Test`))
 		Expect(test.Col1).To(Equal(1))
 	})
 })
@@ -701,11 +701,11 @@ var _ = Describe("ORM", func() {
 			var author Author
 			err := db.Model(&author).
 				Column(
-				"author.*",
-				"Books.id", "Books.author_id", "Books.editor_id",
-				"Books.Author", "Books.Editor",
-				"Books.Translations",
-			).
+					"author.*",
+					"Books.id", "Books.author_id", "Books.editor_id",
+					"Books.Author", "Books.Editor",
+					"Books.Translations",
+				).
 				First()
 			Expect(err).NotTo(HaveOccurred())
 			Expect(author).To(Equal(Author{

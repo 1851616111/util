@@ -18,12 +18,12 @@ func (p *HstoreParser) NextKey() ([]byte, error) {
 	}
 
 	if !p.Skip('"') {
-		return nil, fmt.Errorf("pg: can't parse hstore key: %q", p.Bytes())
+		return nil, fmt.Errorf("pg: can'test parse hstore key: %q", p.Bytes())
 	}
 
 	key := p.readSubstring()
 	if !(p.Skip('=') && p.Skip('>')) {
-		return nil, fmt.Errorf("pg: can't parse hstore key: %q", p.Bytes())
+		return nil, fmt.Errorf("pg: can'test parse hstore key: %q", p.Bytes())
 	}
 
 	return key, nil
@@ -31,7 +31,7 @@ func (p *HstoreParser) NextKey() ([]byte, error) {
 
 func (p *HstoreParser) NextValue() ([]byte, error) {
 	if !p.Skip('"') {
-		return nil, fmt.Errorf("pg: can't parse hstore value: %q", p.Bytes())
+		return nil, fmt.Errorf("pg: can'test parse hstore value: %q", p.Bytes())
 	}
 
 	value := p.readSubstring()

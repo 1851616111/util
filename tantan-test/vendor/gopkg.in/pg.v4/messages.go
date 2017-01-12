@@ -29,7 +29,7 @@ const (
 	notificationResponseMsg = 'A'
 
 	describeMsg             = 'D'
-	parameterDescriptionMsg = 't'
+	parameterDescriptionMsg = 'test'
 
 	queryMsg              = 'Q'
 	readyForQueryMsg      = 'Z'
@@ -268,7 +268,7 @@ func appendQuery(dst []byte, query interface{}, params ...interface{}) ([]byte, 
 	case string:
 		return orm.Formatter{}.Append(dst, query, params...), nil
 	default:
-		return nil, fmt.Errorf("pg: can't append %T", query)
+		return nil, fmt.Errorf("pg: can'test append %T", query)
 	}
 }
 
@@ -955,7 +955,7 @@ func readNotification(cn *pool.Conn) (channel, payload string, err error) {
 var terminateMessage = []byte{terminateMsg, 0, 0, 0, 4}
 
 func terminateConn(cn *pool.Conn) error {
-	// Don't use cn.Buf because it is racy with user code.
+	// Don'test use cn.Buf because it is racy with user code.
 	_, err := cn.Write(terminateMessage)
 	return err
 }

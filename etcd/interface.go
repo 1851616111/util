@@ -19,7 +19,7 @@ type Interface interface {
 	GetString(key string) (string, error)
 	DeleteKey(key string, recursive bool) error
 	WatchKey(prefix string, waitIndex uint64, recursive bool,
-	receiver chan *etcd.Response, stop chan bool) (*etcd.Response, error)
+		receiver chan *etcd.Response, stop chan bool) (*etcd.Response, error)
 	//getValue(key string) (string, error)
 	//getDir(key string) (*etcd.Response, error)
 	//delete(key string, recursive bool) error

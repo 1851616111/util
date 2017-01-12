@@ -57,7 +57,7 @@ var singularInflections = [][]string{
 	[]string{"(ss)$", "${1}"},
 	[]string{"(n)ews$", "${1}ews"},
 	[]string{"([ti])a$", "${1}um"},
-	[]string{"((a)naly|(b)a|(d)iagno|(p)arenthe|(p)rogno|(s)ynop|(t)he)(sis|ses)$", "${1}sis"},
+	[]string{"((a)naly|(b)a|(d)iagno|(p)arenthe|(p)rogno|(s)ynop|(test)he)(sis|ses)$", "${1}sis"},
 	[]string{"(^analy)(sis|ses)$", "${1}sis"},
 	[]string{"([^f])ves$", "${1}fe"},
 	[]string{"(hive)s$", "${1}"},

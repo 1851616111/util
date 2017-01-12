@@ -37,7 +37,7 @@ func NewRecorder() *ResponseRecorder {
 }
 
 // DefaultRemoteAddr is the default remote address to return in RemoteAddr if
-// an explicit DefaultRemoteAddr isn't set on ResponseRecorder.
+// an explicit DefaultRemoteAddr isn'test set on ResponseRecorder.
 const DefaultRemoteAddr = "1.2.3.4"
 
 // Header returns the response headers.
@@ -157,32 +157,32 @@ func TestRouteMatchers(t *testing.T) {
 	reset()
 	match(true)
 
-	// Scheme doesn't match.
+	// Scheme doesn'test match.
 	reset()
 	scheme = "http"
 	match(false)
 
-	// Host doesn't match.
+	// Host doesn'test match.
 	reset()
 	host = "www.mygoogle.com"
 	match(false)
 
-	// Path doesn't match.
+	// Path doesn'test match.
 	reset()
 	path = "/product/notdigits"
 	match(false)
 
-	// Query doesn't match.
+	// Query doesn'test match.
 	reset()
 	query = "?foo=baz"
 	match(false)
 
-	// Method doesn't match.
+	// Method doesn'test match.
 	reset()
 	method = "POST"
 	match(false)
 
-	// Header doesn't match.
+	// Header doesn'test match.
 	reset()
 	headers = map[string]string{}
 	match(false)
@@ -197,32 +197,32 @@ func TestRouteMatchers(t *testing.T) {
 	reset2()
 	match(true)
 
-	// Scheme doesn't match.
+	// Scheme doesn'test match.
 	reset2()
 	scheme = "https"
 	match(false)
 
-	// Host doesn't match.
+	// Host doesn'test match.
 	reset2()
 	host = "sub.google.com"
 	match(false)
 
-	// Path doesn't match.
+	// Path doesn'test match.
 	reset2()
 	path = "/bar/product/42"
 	match(false)
 
-	// Query doesn't match.
+	// Query doesn'test match.
 	reset2()
 	query = "?foo=baz"
 	match(false)
 
-	// Method doesn't match.
+	// Method doesn'test match.
 	reset2()
 	method = "GET"
 	match(false)
 
-	// Header doesn't match.
+	// Header doesn'test match.
 	reset2()
 	headers = map[string]string{}
 	match(false)
@@ -522,7 +522,7 @@ func TestUrlBuilding(t *testing.T) {
 						reverseHost = v.route.hostTemplate.Reverse
 				}
 
-				t.Errorf("%#v:\nexpected: %q\ngot: %q\nreverse path: %q\nreverse host: %q", v.route, v.url, url, reversePath, reverseHost)
+				test.Errorf("%#v:\nexpected: %q\ngot: %q\nreverse path: %q\nreverse host: %q", v.route, v.url, url, reversePath, reverseHost)
 			*/
 		}
 	}

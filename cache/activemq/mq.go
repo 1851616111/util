@@ -11,27 +11,26 @@ type MQ interface {
 	Ack(mq.Headers) error
 }
 
-type q struct  {
+type q struct {
 	target string
-	topic string
+	topic  string
 
 	once *sync.Once
-	c *mq.Connection
-	ch <-chan mq.MessageData
-	err error
+	c    *mq.Connection
+	ch   <-chan mq.MessageData
+	err  error
 }
 
 func NewMQ(target, topic string) MQ {
 	return &q{
 		target: target,
-		topic: topic,
-		once: new(sync.Once),
+		topic:  topic,
+		once:   new(sync.Once),
 	}
 }
 
-
 func (p *q) GetQ() (<-chan mq.MessageData, error) {
-	p.once.Do(func(){
+	p.once.Do(func() {
 		conn, e := net.Dial("tcp", p.target)
 		if e != nil {
 			p.err = e
@@ -75,4 +74,3 @@ func (p *q) GetQ() (<-chan mq.MessageData, error) {
 func (p *q) Ack(h mq.Headers) error {
 	return p.c.Ack(h)
 }
-

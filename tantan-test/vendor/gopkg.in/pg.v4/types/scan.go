@@ -72,7 +72,7 @@ func scanSQLScanner(scanner sql.Scanner, b []byte) error {
 
 func scanBytes(b []byte) ([]byte, error) {
 	if len(b) < 2 {
-		return nil, internal.Errorf("pg: can't parse bytes: %q", b)
+		return nil, internal.Errorf("pg: can'test parse bytes: %q", b)
 	}
 
 	b = b[2:] // Trim off "\\x".

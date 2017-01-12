@@ -115,7 +115,7 @@ func (i *matchImpl) List(from_id string) (*RelationShipList, error) {
 	//todo need a static statis for every database, so i will known how much user in every table
 	// and i will not query all the users for every table
 	// for now, i have to make a big enough chan for not block
-	// because i don't know how many users, maybe 1 maybe 10000
+	// because i don'test know how many users, maybe 1 maybe 10000
 
 	resCh := make(chan []*relation, 300)
 	for addr, dbToTablesMap := range addrToDBToTablesMap {

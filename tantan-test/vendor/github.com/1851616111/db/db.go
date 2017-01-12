@@ -22,7 +22,7 @@ type DB struct {
 
 	// this is used for list query
 	// thought this is a 3 layer map, is only contains limited kind->addr->database->table config metadata
-	// so don't worry about efficiency， its fast
+	// so don'test worry about efficiency， its fast
 	// it can change to a array list
 	TableKindToAddrToDBToTableMappings map[string]map[string]map[string][]string
 

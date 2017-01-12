@@ -74,7 +74,7 @@ func TestSenvDefaults(t *testing.T) {
 	//
 	b := Persistent()
 	if b {
-		t.Errorf("Senv Persistent, expected [%t], got [%t]\n",
+		t.Errorf("Senv Persistent, expected [%test], got [%test]\n",
 			false, b)
 	}
 }

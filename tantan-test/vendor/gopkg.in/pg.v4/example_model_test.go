@@ -365,9 +365,9 @@ func ExampleDB_Select_whereOr() {
 	var books []Book
 	err := db.Model(&books).
 		WhereOr(
-		pg.SQL("author_id = ?", authorIdOrEditorId),
-		pg.SQL("editor_id = ?", authorIdOrEditorId),
-	).
+			pg.SQL("author_id = ?", authorIdOrEditorId),
+			pg.SQL("editor_id = ?", authorIdOrEditorId),
+		).
 		Select()
 	if err != nil {
 		panic(err)
@@ -601,8 +601,8 @@ func ExampleDB_Model_hasMany() {
 	err := db.Model(&user).
 		Column("user.*", "Profiles").
 		Relation("Profiles", func(q *orm.Query) *orm.Query {
-		return q.Where("active IS TRUE")
-	}).
+			return q.Where("active IS TRUE")
+		}).
 		First()
 	if err != nil {
 		panic(err)

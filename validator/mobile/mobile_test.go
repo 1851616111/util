@@ -18,4 +18,3 @@ func TestValidate(t *testing.T) {
 		}
 	}
 }
-

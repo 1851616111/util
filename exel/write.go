@@ -2,7 +2,6 @@ package exel
 
 import (
 	"errors"
-	reflectutil "github.com/1851616111/util/reflect"
 	"github.com/tealeg/xlsx"
 	"reflect"
 	"strings"
@@ -16,8 +15,8 @@ type child struct {
 }
 type test struct {
 	A string `xlsx:"姓名"`
-	B int    `xlsx:"年龄"`
-	C child  `xlsx:"struct"`
+	B int    `xlsx:"-"`
+	C child  `xlsx:"xxx"`
 }
 
 func MarshalToFile(obj interface{}) error {
@@ -35,29 +34,13 @@ func MarshalToFile(obj interface{}) error {
 		return errors.New("unsupported object type, only struct")
 	}
 
-	firstLine := []string{}
-	elemFieldNum := elemT.NumField()
-	for i := 0; i < elemFieldNum; i++ {
-		var cell string
-		if cell = elemT.Field(i).Tag.Get("xlsx"); cell == "" {
-			cell = elemT.Field(i).Name
-		}
-
-		firstLine = append(firstLine, cell)
-	}
-
 	v := reflect.ValueOf(obj)
-	rows := [][]string{firstLine}
+	rows := [][]string{columnNames(elemT)}
 
-	for sliceIdx := 0; sliceIdx < v.Len(); sliceIdx++ {
-		ele := v.Index(sliceIdx)
+	for i := 0; i < v.Len(); i++ {
+		item := v.Index(i)
 
-		cells := []string{}
-		for fieldIdx := 0; fieldIdx < elemFieldNum; fieldIdx++ {
-			cell := reflectutil.ValueToString(ele.Field(fieldIdx))
-			cells = append(cells, cell)
-		}
-		rows = append(rows, cells)
+		rows = append(rows, ValueToSlice(item)[1:])
 	}
 
 	return Write(rows)

@@ -158,7 +158,7 @@ func TestSuppressContentType(t *testing.T) {
 		// fmt.Printf("DUMP: md:%#v\n", v)
 		if tv.doSuppress {
 			if try != tv.wanted {
-				t.Fatalf("TestSuppressContentType tn:%d wanted:%t got:%t\n",
+				t.Fatalf("TestSuppressContentType tn:%d wanted:%test got:%test\n",
 					tn, tv.wanted, try)
 			}
 		}

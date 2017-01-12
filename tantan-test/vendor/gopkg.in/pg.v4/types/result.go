@@ -29,7 +29,7 @@ func ParseResult(b []byte) *Result {
 }
 
 // Affected returns the number of rows affected by SELECT, INSERT, UPDATE, or
-// DELETE queries. It returns -1 when query can't possibly affect any rows,
+// DELETE queries. It returns -1 when query can'test possibly affect any rows,
 // e.g. in case of CREATE or SHOW queries.
 func (r Result) Affected() int {
 	return r.affected

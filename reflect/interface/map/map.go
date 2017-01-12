@@ -49,5 +49,6 @@ func main() {
 	// Iterate over the map via reflection.
 	for i, key := range v.MapKeys() {
 		fmt.Println(i, ":", v.MapIndex(key))
+		fmt.Println(fmt.Sprint(v.MapIndex(key)))
 	}
 }

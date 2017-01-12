@@ -1,8 +1,8 @@
 package strings
 
 import (
-	"testing"
 	"reflect"
+	"testing"
 )
 
 func Test_SubString(t *testing.T) {
@@ -12,10 +12,9 @@ func Test_SubString(t *testing.T) {
 	}
 }
 
-
 func Test_InterceptNumber(t *testing.T) {
 	str := "123a456d7a"
-	if ints := InterceptNumber(str); !reflect.DeepEqual(ints, []int{123,456,7})  {
+	if ints := InterceptNumber(str); !reflect.DeepEqual(ints, []int{123, 456, 7}) {
 		t.Fatal(ints)
 	}
 }

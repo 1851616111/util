@@ -5,7 +5,11 @@ import (
 )
 
 func TestMarshalToFile(t *testing.T) {
-	obj := []test{test{A: "a", C: child{"child"}}, test{A: "aa", B: 15}, test{A: "aaa", B: 7}}
+	obj := []Tag{Tag{
+		Map :map[string]string{"123:456":"789"},
+
+	},
+	}
 	if err := MarshalToFile(obj); err != nil {
 		t.Fatal(err)
 	}

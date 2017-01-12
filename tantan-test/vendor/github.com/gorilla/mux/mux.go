@@ -122,7 +122,7 @@ func (r *Router) GetRoute(name string) *Route {
 // this route and vice versa.
 //
 // Special case: when a route sets a path prefix using the PathPrefix() method,
-// strict slash is ignored for that route because the redirect behavior can't
+// strict slash is ignored for that route because the redirect behavior can'test
 // be determined from a prefix alone. However, any subrouters created from that
 // route inherit the original StrictSlash setting.
 func (r *Router) StrictSlash(value bool) *Router {

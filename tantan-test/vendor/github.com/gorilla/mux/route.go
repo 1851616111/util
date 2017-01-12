@@ -105,7 +105,7 @@ func (r *Route) GetHandler() http.Handler {
 // If the name was registered already it will be overwritten.
 func (r *Route) Name(name string) *Route {
 	if r.name != "" {
-		r.err = fmt.Errorf("mux: route already has name %q, can't set %q",
+		r.err = fmt.Errorf("mux: route already has name %q, can'test set %q",
 			r.name, name)
 	}
 	if r.err == nil {
@@ -411,8 +411,8 @@ func (r *Route) BuildVarsFunc(f BuildVarsFunc) *Route {
 //     s.HandleFunc("/products/{key}", ProductHandler)
 //     s.HandleFunc("/articles/{category}/{id:[0-9]+}"), ArticleHandler)
 //
-// Here, the routes registered in the subrouter won't be tested if the host
-// doesn't match.
+// Here, the routes registered in the subrouter won'test be tested if the host
+// doesn'test match.
 func (r *Route) Subrouter() *Router {
 	router := &Router{parent: r, strictSlash: r.strictSlash}
 	r.addMatcher(router)
@@ -459,7 +459,7 @@ func (r *Route) URL(pairs ...string) (*url.URL, error) {
 		return nil, r.err
 	}
 	if r.regexp == nil {
-		return nil, errors.New("mux: route doesn't have a host or path")
+		return nil, errors.New("mux: route doesn'test have a host or path")
 	}
 	values, err := r.prepareVars(pairs...)
 	if err != nil {
@@ -493,7 +493,7 @@ func (r *Route) URLHost(pairs ...string) (*url.URL, error) {
 		return nil, r.err
 	}
 	if r.regexp == nil || r.regexp.host == nil {
-		return nil, errors.New("mux: route doesn't have a host")
+		return nil, errors.New("mux: route doesn'test have a host")
 	}
 	values, err := r.prepareVars(pairs...)
 	if err != nil {
@@ -517,7 +517,7 @@ func (r *Route) URLPath(pairs ...string) (*url.URL, error) {
 		return nil, r.err
 	}
 	if r.regexp == nil || r.regexp.path == nil {
-		return nil, errors.New("mux: route doesn't have a path")
+		return nil, errors.New("mux: route doesn'test have a path")
 	}
 	values, err := r.prepareVars(pairs...)
 	if err != nil {

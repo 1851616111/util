@@ -77,6 +77,6 @@ served. Just call Clear() passing the request:
 variables at the end of a request lifetime.
 
 The Routers from the packages gorilla/mux and gorilla/pat call Clear()
-so if you are using either of them you don't need to clear the context manually.
+so if you are using either of them you don'test need to clear the context manually.
 */
 package context

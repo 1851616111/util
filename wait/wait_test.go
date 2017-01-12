@@ -262,7 +262,7 @@ func TestPollImmediate(t *testing.T) {
 	if err := pollImmediateInternal(fp.GetWaitFunc(), f); err != nil {
 		t.Fatalf("unexpected error %v", err)
 	}
-	// We don't need to wait for fp.wg, as pollImmediate shouldn't call WaitFunc at all.
+	// We don'test need to wait for fp.wg, as pollImmediate shouldn'test call WaitFunc at all.
 	if invocations != 1 {
 		t.Errorf("Expected exactly one invocation, got %d", invocations)
 	}
@@ -281,7 +281,7 @@ func TestPollImmediateError(t *testing.T) {
 	if err := pollImmediateInternal(fp.GetWaitFunc(), f); err == nil || err != expectedError {
 		t.Fatalf("Expected error %v, got none %v", expectedError, err)
 	}
-	// We don't need to wait for fp.wg, as pollImmediate shouldn't call WaitFunc at all.
+	// We don'test need to wait for fp.wg, as pollImmediate shouldn'test call WaitFunc at all.
 	used := atomic.LoadInt32(&fp.used)
 	if used != 0 {
 		t.Errorf("Expected exactly zero ticks, got %d", used)
@@ -405,7 +405,7 @@ func TestWaitForWithDelay(t *testing.T) {
 		time.Sleep(10 * time.Millisecond)
 		return true, nil
 	}, done)
-	// If polling goroutine doesn't see the done signal it will leak timers.
+	// If polling goroutine doesn'test see the done signal it will leak timers.
 	select {
 	case done <- struct{}{}:
 	case <-time.After(ForeverTestTimeout):

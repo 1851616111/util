@@ -1,6 +1,6 @@
 package main
 
-import(
+import (
 	"bufio"
 	"crypto/tls"
 	"crypto/x509"
@@ -10,37 +10,37 @@ import(
 )
 
 func main() {
-	cert, err := tls.LoadX509KeyPair("../server.pem","../server.key")
-	if err !=nil{
+	cert, err := tls.LoadX509KeyPair("../server.pem", "../server.key")
+	if err != nil {
 		log.Println(err)
 		return
 	}
 
 	certBytes, err := ioutil.ReadFile("../client.pem")
-	if err !=nil{
+	if err != nil {
 		panic("Unable to read cert.pem")
 	}
 	clientCertPool := x509.NewCertPool()
 	ok := clientCertPool.AppendCertsFromPEM(certBytes)
-	if!ok {
+	if !ok {
 		panic("failed to parse root certificate")
 	}
 
 	config := &tls.Config{
 		Certificates: []tls.Certificate{cert},
-		ClientAuth: tls.RequireAndVerifyClientCert,
-		ClientCAs: clientCertPool,
+		ClientAuth:   tls.RequireAndVerifyClientCert,
+		ClientCAs:    clientCertPool,
 	}
-	ln, err := tls.Listen("tcp",":443", config)
-	if err !=nil{
+	ln, err := tls.Listen("tcp", ":443", config)
+	if err != nil {
 		log.Println(err)
 		return
 	}
 	defer ln.Close()
 
-	for{
+	for {
 		conn, err := ln.Accept()
-		if err !=nil{
+		if err != nil {
 			log.Println(err)
 			continue
 		}
@@ -51,9 +51,9 @@ func main() {
 func handleConn(conn net.Conn) {
 	defer conn.Close()
 	r := bufio.NewReader(conn)
-	for{
+	for {
 		msg, err := r.ReadString('\n')
-		if  err !=nil{
+		if err != nil {
 			log.Println(err)
 			return
 		}
@@ -61,7 +61,7 @@ func handleConn(conn net.Conn) {
 		println(msg)
 
 		n, err := conn.Write([]byte("world\n"))
-		if err !=nil{
+		if err != nil {
 			log.Println(n, err)
 			return
 		}

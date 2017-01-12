@@ -1,8 +1,8 @@
 package strings
 
 import (
-	"strings"
 	"strconv"
+	"strings"
 )
 
 func SubString(str string, begin, length int) (substr string) {
@@ -26,17 +26,16 @@ func SubString(str string, begin, length int) (substr string) {
 	return string(rs[begin:end])
 }
 
-
 func InterceptNumber(str string) []int {
 	rs := []rune(str)
 	ret := []int{}
 
 	tmp := []rune{}
 
-	for id , r := range rs {
+	for id, r := range rs {
 		if isNumberStr(r) {
 			tmp = append(tmp, r)
-			if id == len(rs) - 1 {
+			if id == len(rs)-1 {
 				i, _ := strconv.ParseInt(string(tmp), 10, 64)
 				ret = append(ret, int(i))
 			}

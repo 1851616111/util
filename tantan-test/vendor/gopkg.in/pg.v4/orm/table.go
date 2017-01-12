@@ -39,7 +39,7 @@ func (t *Table) AddField(field *Field) {
 func (t *Table) GetField(fieldName string) (*Field, error) {
 	field, ok := t.FieldsMap[fieldName]
 	if !ok {
-		return nil, fmt.Errorf("can't find column %s in table %s", fieldName, t.Name)
+		return nil, fmt.Errorf("can'test find column %s in table %s", fieldName, t.Name)
 	}
 	return field, nil
 }

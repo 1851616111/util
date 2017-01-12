@@ -23,7 +23,7 @@ import (
 //
 // Previously we accepted only Python-like identifiers for variable
 // names ([a-zA-Z_][a-zA-Z0-9_]*), but currently the only restriction is that
-// name and pattern can't be empty, and names can't contain a colon.
+// name and pattern can'test be empty, and names can'test contain a colon.
 func newRouteRegexp(tpl string, matchHost, matchPrefix, matchQuery, strictSlash bool) (*routeRegexp, error) {
 	// Check if it is well-formed.
 	idxs, errBraces := braceIndices(tpl)
@@ -67,7 +67,7 @@ func newRouteRegexp(tpl string, matchHost, matchPrefix, matchQuery, strictSlash 
 		if len(parts) == 2 {
 			patt = parts[1]
 		}
-		// Name or pattern can't be empty.
+		// Name or pattern can'test be empty.
 		if name == "" || patt == "" {
 			return nil, fmt.Errorf("mux: missing name or pattern in %q",
 				tpl[idxs[i]:end])
@@ -169,11 +169,11 @@ func (r *routeRegexp) url(values map[string]string) (string, error) {
 	if !r.regexp.MatchString(rv) {
 		// The URL is checked against the full regexp, instead of checking
 		// individual variables. This is faster but to provide a good error
-		// message, we check individual regexps if the URL doesn't match.
+		// message, we check individual regexps if the URL doesn'test match.
 		for k, v := range r.varsN {
 			if !r.varsR[k].MatchString(values[v]) {
 				return "", fmt.Errorf(
-					"mux: variable %q doesn't match, expected %q", values[v],
+					"mux: variable %q doesn'test match, expected %q", values[v],
 					r.varsR[k].String())
 			}
 		}

@@ -11,7 +11,7 @@ type hasher interface {
 	hash(string) (string, error)
 }
 
-// as this is a test rehash json isn't done
+// as this is a test rehash json isn'test done
 type consistentHash struct {
 	*consistent.Consistent
 }

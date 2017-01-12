@@ -1,9 +1,9 @@
 package etcd
 
 import (
+	"fmt"
 	etcderror "github.com/coreos/etcd/error"
 	"github.com/coreos/go-etcd/etcd"
-	"fmt"
 )
 
 func RangeNodeFunc(node *etcd.Node, fn func(*etcd.Node)) {

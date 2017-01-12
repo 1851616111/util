@@ -59,7 +59,7 @@ func TestContext(t *testing.T) {
 	// GetAll() for empty request
 	values = GetAll(emptyR)
 	if values != nil {
-		t.Error("GetAll didn't return nil value for invalid request")
+		t.Error("GetAll didn'test return nil value for invalid request")
 	}
 
 	// GetAllOk()

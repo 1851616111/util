@@ -16,7 +16,7 @@ const TmpPath = "./tmp"
 var Cmd_Path string
 
 func Init(cmd string) {
-	//ssh-keygen -t rsa -f .ssh/id_rsa -N ""
+	//ssh-keygen -test rsa -f .ssh/id_rsa -N ""
 	var err error
 	Cmd_Path, err = exec.LookPath(cmd)
 	if err != nil {
@@ -95,7 +95,7 @@ func generateKeyPair(key string, keyType string) (*KeyPair, error) {
 }
 
 func createKey(file string, keyType string) error {
-	cmd := exec.Command(Cmd_Path, "-t", keyType, "-f", file, "-N", "")
+	cmd := exec.Command(Cmd_Path, "-test", keyType, "-f", file, "-N", "")
 	return cmd.Run()
 }
 
