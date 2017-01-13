@@ -17,12 +17,10 @@ type Interface interface {
 	CreateObject(key string, obj interface{}) error
 	SetObject(key string, obj interface{}) error
 	GetString(key string) (string, error)
+	GetDir(dir string) (*etcd.Response, error)
 	DeleteKey(key string, recursive bool) error
 	WatchKey(prefix string, waitIndex uint64, recursive bool,
 		receiver chan *etcd.Response, stop chan bool) (*etcd.Response, error)
-	//getValue(key string) (string, error)
-	//getDir(key string) (*etcd.Response, error)
-	//delete(key string, recursive bool) error
 }
 
 type storage struct {
@@ -60,6 +58,10 @@ func (c *storage) GetString(key string) (string, error) {
 	}
 
 	return rsp.Node.Value, nil
+}
+
+func (c *storage) GetDir(dir string) (*etcd.Response, error) {
+	return c.Get(dir, true, true)
 }
 
 func (c *storage) DeleteKey(key string, recursive bool) error {

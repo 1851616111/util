@@ -1,6 +1,7 @@
 package etcd
 
 import (
+	"fmt"
 	"github.com/coreos/go-etcd/etcd"
 	"testing"
 )
@@ -49,6 +50,12 @@ func TestStorage_CreateObject(t *testing.T) {
 	}
 
 	if err := cli.CreateObject("/test/abc", map[string]string{"1": "2"}); !AlreadyExistErr(err) {
+		t.Fatal(err)
+	}
+}
+
+func TestStorage_GetDir(t *testing.T) {
+	if rsp, err := cli.GetDir("/test"); err != nil {
 		t.Fatal(err)
 	}
 }

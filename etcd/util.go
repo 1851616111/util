@@ -7,13 +7,13 @@ import (
 )
 
 func RangeNodeFunc(node *etcd.Node, fn func(*etcd.Node)) {
-	if !isDir(node) {
+	if !IsDir(node) {
 		fn(node)
 		return
 	}
 
 	for _, child := range node.Nodes {
-		if isDir(child) {
+		if IsDir(child) {
 			go RangeNodeFunc(child, fn)
 		} else {
 			fn(child)
@@ -21,7 +21,16 @@ func RangeNodeFunc(node *etcd.Node, fn func(*etcd.Node)) {
 	}
 }
 
-func isDir(n *etcd.Node) bool {
+func ListDir(rsp *etcd.Response) []string {
+	dirNodeValues := []string{}
+
+	for _, node := range rsp.Node.Nodes {
+		dirNodeValues = append(dirNodeValues, node.Value)
+	}
+	return dirNodeValues
+}
+
+func IsDir(n *etcd.Node) bool {
 	return n.Dir
 }
 
@@ -30,6 +39,17 @@ func AlreadyExistErr(err error) bool {
 		return false
 	}
 	if e, ok := err.(*etcd.EtcdError); ok && e.ErrorCode == etcderror.EcodeNodeExist {
+		return true
+	}
+
+	return false
+}
+
+func NotDirErr(err error) bool {
+	if err == nil {
+		return false
+	}
+	if e, ok := err.(*etcd.EtcdError); ok && e.ErrorCode == etcderror.EcodeNotDir {
 		return true
 	}
 
