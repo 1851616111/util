@@ -1,8 +1,8 @@
 package strings
 
 import (
-	"strconv"
 	"strings"
+	"strconv"
 )
 
 func SubString(str string, begin, length int) (substr string) {
@@ -26,23 +26,24 @@ func SubString(str string, begin, length int) (substr string) {
 	return string(rs[begin:end])
 }
 
-func InterceptNumber(str string) []int {
+
+func InterceptNumber(str string) []float64 {
 	rs := []rune(str)
-	ret := []int{}
+	ret := []float64{}
 
 	tmp := []rune{}
 
-	for id, r := range rs {
+	for id , r := range rs {
 		if isNumberStr(r) {
 			tmp = append(tmp, r)
-			if id == len(rs)-1 {
-				i, _ := strconv.ParseInt(string(tmp), 10, 64)
-				ret = append(ret, int(i))
+			if id == len(rs) - 1 {
+				number, _ := strconv.ParseFloat(string(tmp), 64)
+				ret = append(ret, number)
 			}
 		} else {
 			if len(tmp) > 0 {
-				i, _ := strconv.ParseInt(string(tmp), 10, 64)
-				ret = append(ret, int(i))
+				i, _ := strconv.ParseFloat(string(tmp), 64)
+				ret = append(ret, i)
 				tmp = []rune{}
 			}
 		}
@@ -52,5 +53,5 @@ func InterceptNumber(str string) []int {
 }
 
 func isNumberStr(r rune) bool {
-	return strings.Contains("0123456789", string(r))
+	return strings.Contains("0123456789.", string(r))
 }

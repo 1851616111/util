@@ -1,20 +1,13 @@
 package strings
 
-import (
-	"reflect"
-	"testing"
-)
-
-func Test_SubString(t *testing.T) {
-	str := "Abc"
-	if SubString(str, 0, 1) != "A" {
-		t.Fatal(str)
-	}
-}
+import "testing"
 
 func Test_InterceptNumber(t *testing.T) {
-	str := "123a456d7a"
-	if ints := InterceptNumber(str); !reflect.DeepEqual(ints, []int{123, 456, 7}) {
-		t.Fatal(ints)
+	if numbers := InterceptNumber("123a456bca"); numbers[0] != 123 && numbers[1] != 456 {
+		t.Fatal()
+	}
+
+	if numbers := InterceptNumber("123.9aaaa"); numbers[0] != 123.9  {
+		t.Fatal()
 	}
 }
