@@ -56,6 +56,17 @@ func NotDirErr(err error) bool {
 	return false
 }
 
+func KeyNotFound(err error) bool {
+	if err == nil {
+		return false
+	}
+	if e, ok := err.(*etcd.EtcdError); ok && e.ErrorCode == etcderror.EcodeKeyNotFound {
+		return true
+	}
+
+	return false
+}
+
 func receiver(c chan *etcd.Response, stop chan bool) {
 	for i := 0; i < 10; i++ {
 		fmt.Println(<-c)
