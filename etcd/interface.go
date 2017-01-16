@@ -17,6 +17,7 @@ type Interface interface {
 	CreateObject(key string, obj interface{}) error
 	SetObject(key string, obj interface{}) error
 	GetString(key string) (string, error)
+	MakeDir(dir string) error
 	GetDir(dir string) (*etcd.Response, error)
 	DeleteKey(key string, recursive bool) error
 	WatchKey(prefix string, waitIndex uint64, recursive bool,
@@ -58,6 +59,14 @@ func (c *storage) GetString(key string) (string, error) {
 	}
 
 	return rsp.Node.Value, nil
+}
+
+func (c *storage) MakeDir(dir string) error {
+	if _, err := c.CreateDir(dir, 0); err != nil {
+		return err
+	}
+
+	return nil
 }
 
 func (c *storage) GetDir(dir string) (*etcd.Response, error) {
