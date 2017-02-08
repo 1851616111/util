@@ -4,6 +4,7 @@ import (
 	"reflect"
 	"sort"
 	"testing"
+	"fmt"
 )
 
 func Test_NewParams(t *testing.T) {
@@ -19,5 +20,15 @@ func Test_SortParams(t *testing.T) {
 	p2 := ([]Param)(*p1)
 	if !reflect.DeepEqual(p2, []Param{Param{"aaa", "111"}, Param{"bbb", "222"}}) {
 		t.Fatalf("Test_SortParams err %v\n", p1)
+	}
+}
+
+func TestParams_Rename(t *testing.T) {
+	p := NewParams()
+	p.Add("bbb", "44444")
+	p.Rename("bbb", "ccc")
+
+	if !reflect.DeepEqual(p, NewParams().Add("ccc", "44444")) {
+		t.Fatalf("Test_SortParams err %v\n", p)
 	}
 }

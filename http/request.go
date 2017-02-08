@@ -138,6 +138,15 @@ func (p *Params) Get(key string) (bool, string) {
 	return false, ""
 }
 
+func (p *Params) Rename(old, new string) {
+	for id, param := range *p {
+		if param.Name == old {
+			(*p)[id].Name = new
+			return
+		}
+	}
+}
+
 type Interface interface {
 	// Len is the number of elements in the collection.
 	Len() int
