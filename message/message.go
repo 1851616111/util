@@ -2,6 +2,7 @@ package message
 
 import (
 	"io"
+	"fmt"
 	"sync"
 	"bytes"
 	"errors"
@@ -24,15 +25,16 @@ func init() {
 var codeMsgM map[int]interface{} = map[int]interface{}{
 	1000: "success",
 	1001: ERR_SERVER_INNER_ERROR,
-	1004: ERR_PATH_NOT_FOUND_ERROR,
+	1004: ERR_REQ_NOT_FOUND_ERROR,
 }
 
 //向用户返回错误信息
 var ERR_SERVER_INNER_ERROR error = errors.New("Internal Server Error")
-var ERR_PATH_NOT_FOUND_ERROR error = errors.New("Request Path Not Found")
+var ERR_REQ_NOT_FOUND_ERROR error = errors.New("Request Not Found")
 
 const _Inner_Error = `{"code":1001,"message":"Internal Server Error"}`
-const _Path_Not_Find = `{"code":1004,"message":"Request Path Not Found"}`
+const _Req_Not_Find = `{"code":1004,"message":"Request Not Found"}`
+const _Param_Not_Find =  `{"code":1004,"message":"Param %s Not Found"}`
 
 type msg struct {
 	Code    int         `json:"code"`
@@ -53,11 +55,12 @@ func InnerError(w http.ResponseWriter) {
 }
 
 func NotFoundError(w http.ResponseWriter) {
-	httputil.Response(w, 400, message(_Path_Not_Find))
+	httputil.Response(w, 404, message(_Req_Not_Find))
 }
 
-func ParamNotFound(w http.ResponseWriter, err error) {
-	httputil.Response(w, 400, message(err.Error()))
+
+func ParamNotFound(w http.ResponseWriter, param string) {
+	httputil.Response(w, 400, message(fmt.Errorf(_Param_Not_Find, param)))
 }
 
 //{"code":1000,"data":null,"message":"success"}
