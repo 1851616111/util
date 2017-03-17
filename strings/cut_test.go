@@ -7,7 +7,7 @@ func Test_InterceptNumber(t *testing.T) {
 		t.Fatal()
 	}
 
-	if numbers := InterceptNumber("123.9aaaa"); numbers[0] != 123.9  {
+	if numbers := InterceptNumber("123.9aaaa"); numbers[0] != 123.9 {
 		t.Fatal()
 	}
 }
