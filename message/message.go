@@ -58,7 +58,6 @@ func NotFoundError(w http.ResponseWriter) {
 	httputil.Response(w, 404, message(_Req_Not_Find))
 }
 
-
 func ParamNotFound(w http.ResponseWriter, param string) {
 	httputil.Response(w, 400, message(fmt.Errorf(_Param_Not_Find, param)))
 }
