@@ -16,7 +16,7 @@ func TestClip(t *testing.T) {
 	}
 
 	target = `,,`
-	if ret := Clip(target, ``, `,`, ``); len(ret)!= 3 {
+	if ret := Clip(target, ``, `,`, ``); len(ret) != 3 {
 		t.Fatal(ret)
 	}
 
