@@ -28,11 +28,11 @@ func Clip(s *string, left, mid, right string) []string {
 	result := strings.TrimSpace(*s)
 
 	if left != "" {
-		result = strings.TrimLeft(result, left)
+		result = strings.TrimPrefix(result, left)
 	}
 
 	if right != "" {
-		result = strings.TrimRight(result, right)
+		result = strings.TrimSuffix(result, right)
 	}
 
 	return strings.Split(result, mid)
