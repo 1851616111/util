@@ -10,6 +10,16 @@ var DB_OBJECT_MID string = `^:^`
 var DB_OBJECT_PERFIX string = `{^{`
 var DB_OBJECT_SUFFIX string = `}^}`
 
+
+var DB_ARRAY_MID_2 string = `%,%`
+var DB_ARRAY_PERFIX_2 string = `[%[`
+var DB_ARRAY_SUFFIX_2 string = `]%]`
+
+var DB_OBJECT_MID_2 string = `%:%`
+var DB_OBJECT_PERFIX_2 string = `{%{`
+var DB_OBJECT_SUFFIX_2 string = `}%}`
+
+
 func Clip(s *string, left, mid, right string) []string {
 	if s == nil {
 		return  nil
@@ -41,4 +51,19 @@ func ClipDBObject(s *string) []string {
 		return nil
 	}
 	return Clip(s, DB_OBJECT_PERFIX, DB_OBJECT_MID, DB_OBJECT_SUFFIX)
+}
+
+func ClipDBArray2(s *string) []string {
+	if s == nil {
+		return nil
+	}
+
+	return Clip(s, DB_ARRAY_PERFIX_2, DB_ARRAY_MID_2, DB_ARRAY_SUFFIX_2)
+}
+
+func ClipDBObject2(s *string) []string {
+	if s == nil {
+		return nil
+	}
+	return Clip(s, DB_OBJECT_PERFIX_2, DB_OBJECT_MID_2, DB_OBJECT_SUFFIX_2)
 }
