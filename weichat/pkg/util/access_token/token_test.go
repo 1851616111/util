@@ -1,4 +1,4 @@
-package oauth2
+package access_token
 
 import "testing"
 
