@@ -1,10 +1,10 @@
 package http
 
 import (
+	"fmt"
 	"reflect"
 	"sort"
 	"testing"
-	"fmt"
 )
 
 func Test_NewParams(t *testing.T) {

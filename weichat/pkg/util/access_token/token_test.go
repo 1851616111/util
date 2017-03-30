@@ -2,7 +2,6 @@ package access_token
 
 import "testing"
 
-
 func TestConfig_Exchange(t *testing.T) {
 	cfg := NewTokenConfig("wxd09c7682905819e6", "b9938ddfec045280eba89fab597a0c41")
 

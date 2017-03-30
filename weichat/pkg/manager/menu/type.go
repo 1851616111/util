@@ -78,14 +78,14 @@ func NewViewButton(name, url string) SubButton {
 	return SubButton{
 		Type: buttonTypes[View],
 		Name: name,
-		URL: url,
+		URL:  url,
 	}
 }
 
 func NewTopButton(name string) *Button {
 	subs := []SubButton{}
 	return &Button{
-		Name: name,
+		Name:      name,
 		SubButton: &subs,
 	}
 }

@@ -1,13 +1,12 @@
 package reflect
 
 import (
-	"testing"
 	"reflect"
+	"testing"
 )
 
-
 func TestToString(t *testing.T) {
-	b := []byte{0,0,0}
+	b := []byte{0, 0, 0}
 	if str := ToString(b); str != "\x00\x00\x00" {
 		t.Fatal()
 	}

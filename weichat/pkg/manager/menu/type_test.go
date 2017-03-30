@@ -1,8 +1,8 @@
 package menu
 
 import (
-	"testing"
 	"github.com/kubernetes/kubernetes/pkg/util/json"
+	"testing"
 )
 
 func TestNewTopButton(t *testing.T) {

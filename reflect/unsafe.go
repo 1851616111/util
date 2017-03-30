@@ -5,7 +5,6 @@ import (
 	"unsafe"
 )
 
-
 func ToString(b []byte) string {
 	h := (*reflect.SliceHeader)(unsafe.Pointer(&b))
 	return *(*string)(unsafe.Pointer(&reflect.StringHeader{h.Data, h.Len}))

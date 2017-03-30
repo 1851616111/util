@@ -26,12 +26,12 @@ func NewRequest(spec *HttpSpec) (*http.Request, error) {
 			switch spec.ContentType {
 			case ContentType_JSON:
 				buf := &bytes.Buffer{}
-				if err := json.NewEncoder(buf).Encode(spec.BodyParams); err != nil {
+				encoder := json.NewEncoder(buf)
+				encoder.SetEscapeHTML(false)
+				if err := encoder.Encode(spec.BodyParams); err != nil {
 					return nil, err
 				}
-
 				body = io.Reader(buf)
-
 			case ContentType_FORM:
 				v := url.Values{}
 				for key, value := range *spec.BodyParams {

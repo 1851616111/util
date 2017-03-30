@@ -1,9 +1,9 @@
 package http
 
 import (
+	"encoding/json"
 	"fmt"
 	"net/http"
-	"encoding/json"
 )
 
 func Response(w http.ResponseWriter, header int, body interface{}) {

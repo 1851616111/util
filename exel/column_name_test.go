@@ -14,11 +14,11 @@ type chield struct {
 }
 
 type Tag struct {
-	A     string      `xlsx:"姓名"`
-	B     int         `xlsx:"年龄"`
-	C     interface{} `xlsx:"性别"`
-	D     chield      `xlsx:"孩子"`
-	Map    map[string]string `xlsx:"mmm"`
+	A     string            `xlsx:"姓名"`
+	B     int               `xlsx:"年龄"`
+	C     interface{}       `xlsx:"性别"`
+	D     chield            `xlsx:"孩子"`
+	Map   map[string]string `xlsx:"mmm"`
 	Array []string
 }
 

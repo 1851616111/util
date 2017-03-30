@@ -1,16 +1,15 @@
 package message
 
 import (
-	"io"
-	"fmt"
-	"sync"
 	"bytes"
-	"errors"
-	"net/http"
 	"encoding/json"
+	"errors"
+	"fmt"
+	"io"
+	"net/http"
+	"sync"
 
 	httputil "github.com/1851616111/util/http"
-
 )
 
 var bytesPool *sync.Pool
@@ -34,7 +33,7 @@ var ERR_REQ_NOT_FOUND_ERROR error = errors.New("Request Not Found")
 
 const _Inner_Error = `{"code":1001,"message":"Internal Server Error"}`
 const _Req_Not_Find = `{"code":1004,"message":"Request Not Found"}`
-const _Param_Not_Find =  `{"code":1004,"message":"Param %s Not Found"}`
+const _Param_Not_Find = `{"code":1004,"message":"Param %s Not Found"}`
 
 type msg struct {
 	Code    int         `json:"code"`

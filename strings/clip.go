@@ -10,7 +10,6 @@ var DB_OBJECT_MID string = `^:^`
 var DB_OBJECT_PERFIX string = `{^{`
 var DB_OBJECT_SUFFIX string = `}^}`
 
-
 var DB_ARRAY_MID_2 string = `%,%`
 var DB_ARRAY_PERFIX_2 string = `[%[`
 var DB_ARRAY_SUFFIX_2 string = `]%]`
@@ -19,10 +18,9 @@ var DB_OBJECT_MID_2 string = `%:%`
 var DB_OBJECT_PERFIX_2 string = `{%{`
 var DB_OBJECT_SUFFIX_2 string = `}%}`
 
-
 func Clip(s *string, left, mid, right string) []string {
 	if s == nil {
-		return  nil
+		return nil
 	}
 
 	result := strings.TrimSpace(*s)

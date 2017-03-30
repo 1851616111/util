@@ -7,6 +7,7 @@ import (
 
 //details https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421140842&token=&lang=zh_CN
 var AccessTokenAddress string = "https://api.weixin.qq.com/sns/oauth2/access_token"
+
 type Config struct {
 	Address   string
 	AppID     string
