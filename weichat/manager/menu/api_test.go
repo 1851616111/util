@@ -1,7 +1,7 @@
 package menu
 
 import (
-	"github.com/1851616111/util/weichat/pkg/manager/test"
+	"github.com/1851616111/util/weichat/manager/test"
 	"testing"
 )
 

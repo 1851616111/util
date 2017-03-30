@@ -1,7 +1,7 @@
 package menu
 
 import (
-	"github.com/kubernetes/kubernetes/pkg/util/json"
+	"encoding/json"
 	"testing"
 )
 

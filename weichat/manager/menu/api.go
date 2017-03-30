@@ -3,7 +3,7 @@ package menu
 import (
 	"encoding/json"
 	"github.com/1851616111/util/http"
-	"github.com/1851616111/util/weichat/pkg/errors"
+	"github.com/1851616111/util/weichat/errors"
 )
 
 const NewMenuURL = "https://api.weixin.qq.com/cgi-bin/menu/create"

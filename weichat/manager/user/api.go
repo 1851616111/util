@@ -1,11 +1,11 @@
 package user
 
 import (
+	"errors"
+	"net/http"
 	"encoding/json"
 	httputil "github.com/1851616111/util/http"
-	errs "github.com/1851616111/util/weichat/pkg/errors"
-	"github.com/pkg/errors"
-	"net/http"
+	errs "github.com/1851616111/util/weichat/errors"
 )
 
 const URL_ListUserIDs = "https://api.weixin.qq.com/cgi-bin/user/get"
@@ -23,7 +23,7 @@ func ListUserIDs(token string) ([]string, error) {
 		return nil, err
 	}
 
-	tmp := UserIDsTmp{}
+	tmp := userIDsTmp{}
 	if err := json.NewDecoder(rsp.Body).Decode(&tmp); err != nil {
 		return nil, err
 	}
@@ -50,7 +50,7 @@ func GetUserDetails(token, openID string) (*User, error) {
 		return nil, err
 	}
 
-	tmp := UserTmp{}
+	tmp := userTmp{}
 	if err := json.NewDecoder(rsp.Body).Decode(&tmp); err != nil {
 		return nil, err
 	}

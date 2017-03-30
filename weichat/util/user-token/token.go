@@ -1,4 +1,4 @@
-package access_token
+package user_token
 
 import (
 	"encoding/json"
@@ -37,7 +37,6 @@ func (c *Config) Exchange(code string) (*Token, error) {
 	}
 
 	var token Token
-
 	if err = json.NewDecoder(rsp.Body).Decode(&token); err != nil {
 		return nil, err
 	}

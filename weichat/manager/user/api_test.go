@@ -1,7 +1,7 @@
 package user
 
 import (
-	tt "github.com/1851616111/util/weichat/pkg/manager/test"
+	tt "github.com/1851616111/util/weichat/manager/test"
 	"testing"
 )
 
