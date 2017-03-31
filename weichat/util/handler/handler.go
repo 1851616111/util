@@ -12,7 +12,7 @@ var APP_ID string
 var Token *token.Config
 
 //validate qualification of weichat developer
-func ValidateDeveloperHandler(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+func DeveloperValidater(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	r.ParseForm()
 	s := sign.Sign(r.FormValue("nonce"), r.FormValue("timestamp"), APP_ID)
 
@@ -26,10 +26,9 @@ func ValidateDeveloperHandler(w http.ResponseWriter, r *http.Request, _ httprout
 	return
 }
 
-func ValidateSourceHandler(handler func(http.ResponseWriter, *http.Request, httprouter.Params)) func(http.ResponseWriter, *http.Request, httprouter.Params) {
+func SourceValidater(tokenCallBack func(*token.Token), handler func(http.ResponseWriter, *http.Request, httprouter.Params)) func(http.ResponseWriter, *http.Request, httprouter.Params) {
 	return func(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 		r.ParseForm()
-
 		code := r.FormValue("code")
 		if code == "" {
 			forbiddenHandler(w, r, ps)
@@ -44,8 +43,11 @@ func ValidateSourceHandler(handler func(http.ResponseWriter, *http.Request, http
 
 		newPs := ([]httprouter.Param)(ps)
 		newPs = append(newPs, httprouter.Param{"openid", tk.Open_ID})
-		handler(w, r, ps)
+		newPs = append(newPs, httprouter.Param{"access_token", tk.Access_Token})
 
+		tokenCallBack(tk)
+
+		handler(w, r, httprouter.Params(newPs))
 		return
 	}
 }
