@@ -1,6 +1,8 @@
 package strings
 
-import "strings"
+import (
+	"strings"
+)
 
 var DB_ARRAY_MID string = `^,^`
 var DB_ARRAY_PERFIX string = `[^[`
@@ -31,6 +33,10 @@ func Clip(s *string, left, mid, right string) []string {
 
 	if right != "" {
 		result = strings.TrimSuffix(result, right)
+	}
+
+	if len(result) == 0 {
+		return nil
 	}
 
 	return strings.Split(result, mid)
