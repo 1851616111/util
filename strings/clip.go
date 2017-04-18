@@ -37,7 +37,7 @@ func Clip(s *string, left, mid, right string) []string {
 }
 
 func ClipDBArray(s *string) []string {
-	if s == nil {
+	if s == nil || len(strings.TrimSpace(*s)) == 0 {
 		return nil
 	}
 
@@ -45,14 +45,14 @@ func ClipDBArray(s *string) []string {
 }
 
 func ClipDBObject(s *string) []string {
-	if s == nil {
+	if s == nil || len(strings.TrimSpace(*s)) == 0 {
 		return nil
 	}
 	return Clip(s, DB_OBJECT_PERFIX, DB_OBJECT_MID, DB_OBJECT_SUFFIX)
 }
 
 func ClipDBArray2(s *string) []string {
-	if s == nil {
+	if s == nil || len(strings.TrimSpace(*s)) == 0 {
 		return nil
 	}
 
@@ -60,7 +60,7 @@ func ClipDBArray2(s *string) []string {
 }
 
 func ClipDBObject2(s *string) []string {
-	if s == nil {
+	if s == nil || len(strings.TrimSpace(*s)) == 0 {
 		return nil
 	}
 	return Clip(s, DB_OBJECT_PERFIX_2, DB_OBJECT_MID_2, DB_OBJECT_SUFFIX_2)

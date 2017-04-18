@@ -3,6 +3,7 @@ package strings
 import (
 	"reflect"
 	"testing"
+	"fmt"
 )
 
 func TestClip(t *testing.T) {
@@ -21,6 +22,14 @@ func TestClip(t *testing.T) {
 	}
 
 	if "" != `` {
+		t.Fatal()
+	}
+}
+
+func TestClip2(t *testing.T) {
+	target := ""
+	sl := ClipDBArray(&target)
+	if len(sl) != 0 {
 		t.Fatal()
 	}
 }
