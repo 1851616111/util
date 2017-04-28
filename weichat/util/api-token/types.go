@@ -5,7 +5,7 @@ import (
 	"sync"
 )
 
-type controller struct {
+type Controller struct {
 	l sync.RWMutex //protect token and config
 
 	expireSec uint16

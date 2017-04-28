@@ -7,7 +7,7 @@ import (
 	"net/http"
 )
 
-func (c *controller) updateToken() error {
+func (c *Controller) updateToken() error {
 	rsp, err := httput.Send(c.getRequestSpec())
 	if err != nil {
 		return err
@@ -21,7 +21,7 @@ func (c *controller) updateToken() error {
 	}
 }
 
-func (c *controller) getRequestSpec() *httput.HttpSpec {
+func (c *Controller) getRequestSpec() *httput.HttpSpec {
 	c.l.RLock()
 	defer c.l.RUnlock()
 
@@ -34,7 +34,7 @@ func (c *controller) getRequestSpec() *httput.HttpSpec {
 	return &spec
 }
 
-func (c *controller) set(tk *token) {
+func (c *Controller) set(tk *token) {
 	c.l.Lock()
 	defer c.l.Unlock()
 
@@ -42,7 +42,7 @@ func (c *controller) set(tk *token) {
 	c.expireSec = tk.Expire
 }
 
-func (c *controller) getExpire() uint16 {
+func (c *Controller) getExpire() uint16 {
 	c.l.RLock()
 	defer c.l.RUnlock()
 
@@ -54,13 +54,13 @@ func (c *controller) getExpire() uint16 {
 	return ex
 }
 
-func (c *controller) GetToken() string {
+func (c *Controller) GetToken() string {
 	c.l.RLock()
 	defer c.l.RUnlock()
 	return c.token
 }
 
-func (c *controller) setExpire(sec uint16) {
+func (c *Controller) setExpire(sec uint16) {
 	c.l.Lock()
 	defer c.l.Unlock()
 
