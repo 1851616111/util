@@ -92,6 +92,7 @@ func ReadJsonObj(spec *HttpSpec, obj interface{}) error {
 	if err != nil {
 		return err
 	}
+	defer req.Body.Close()
 
 	return json.NewDecoder(req.Body).Decode(obj)
 }
