@@ -2,8 +2,8 @@ package mobile
 
 import (
 	"errors"
-	"regexp"
 	"github.com/1851616111/util/validator"
+	"regexp"
 )
 
 var Err_Format_Invalid error = errors.New("person card number format invalid")

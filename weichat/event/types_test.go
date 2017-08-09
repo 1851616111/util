@@ -7,8 +7,7 @@ import (
 )
 
 func TestXML(t *testing.T) {
-	r := Action{
-	}
+	r := Action{}
 
 	s, err := xml.Marshal(r)
 	if err != nil {

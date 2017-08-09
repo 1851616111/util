@@ -1,11 +1,11 @@
 package user
 
 import (
-	"errors"
-	"net/http"
 	"encoding/json"
+	"errors"
 	httputil "github.com/1851616111/util/http"
 	errs "github.com/1851616111/util/weichat/errors"
+	"net/http"
 )
 
 const URL_ListUserIDs = "https://api.weixin.qq.com/cgi-bin/user/get"

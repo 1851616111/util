@@ -2,8 +2,8 @@ package file
 
 import (
 	"github.com/1851616111/util/http"
-	"testing"
 	"os"
+	"testing"
 )
 
 func TestGetHttpImage(t *testing.T) {

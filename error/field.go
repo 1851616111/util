@@ -1,8 +1,8 @@
 package error
 
 import (
-	"reflect"
 	"fmt"
+	"reflect"
 )
 
 func ErrFieldEmpty(field string) error {
@@ -17,7 +17,7 @@ func FieldEmptyError(field interface{}) error {
 			return ErrFieldEmpty(rv.Type().Name())
 		}
 	}
-	
+
 	//func ValueToSlice(rv reflect.Value) []string {
 	//// Display each value based on its Kind.
 	//switch rv.Type().Kind() {

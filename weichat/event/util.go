@@ -20,4 +20,3 @@ func NewArticleAction(title, desc, pic, url string) *Action {
 		Items:        &[]item{it},
 	}
 }
-

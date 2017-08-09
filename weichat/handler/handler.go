@@ -1,17 +1,17 @@
 package handler
 
 import (
-	"sync"
-	"net/http"
-	"io/ioutil"
 	"encoding/xml"
+	"io/ioutil"
+	"net/http"
+	"sync"
 
-	"github.com/golang/glog"
 	httputil "github.com/1851616111/util/http"
-	"github.com/julienschmidt/httprouter"
 	"github.com/1851616111/util/weichat/event"
 	"github.com/1851616111/util/weichat/util/sign"
 	token "github.com/1851616111/util/weichat/util/user-token"
+	"github.com/golang/glog"
+	"github.com/julienschmidt/httprouter"
 )
 
 var APP_ID string
@@ -19,8 +19,8 @@ var Token *token.Config
 var EventManager *event.EventManager
 var EOnceL sync.Once
 
- func init() {
-	EOnceL.Do(func(){
+func init() {
+	EOnceL.Do(func() {
 		EventManager = event.NewEventManager()
 	})
 }
@@ -57,7 +57,7 @@ func EventAction(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 
 	if act := EventManager.Handle(&e); act != nil {
 		b, err := xml.Marshal(act)
-		if err !=  nil {
+		if err != nil {
 			glog.Errorf("encode weichat event action err %v\n", err)
 		}
 
@@ -65,8 +65,6 @@ func EventAction(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	}
 	return
 }
-
-
 
 func AuthValidator(tokenCallBack func(*token.Token, *httprouter.Params) error, handler func(http.ResponseWriter, *http.Request, httprouter.Params)) func(http.ResponseWriter, *http.Request, httprouter.Params) {
 	return func(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {

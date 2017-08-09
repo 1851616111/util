@@ -12,7 +12,7 @@ var E_News string = "news"
 //reference https://mp.weixin.qq.com/wiki/9/2c15b20a16019ae613d413e30cac8ea1.html
 //reference https://mp.weixin.qq.com/wiki/9/2c15b20a16019ae613d413e30cac8ea1.html#.E5.9B.9E.E5.A4.8D.E5.9B.BE.E6.96.87.E6.B6.88.E6.81.AF
 type Action struct {
-	XMLName    xml.Name      `xml:"xml"`
+	XMLName xml.Name `xml:"xml"`
 	Common
 	ArticleCount int     `xml:"ArticleCount,omitempty"`
 	articles     string  `xml:"Articles,omitempty"`
@@ -27,10 +27,10 @@ type Common struct {
 }
 
 type Event struct {
-	XMLName xml.Name      `xml:"xml"`
+	XMLName xml.Name `xml:"xml"`
 	Common
-	E       xmlutil.CDATA `xml:"Event"`
-	EKey    xmlutil.CDATA `xml:"EventKey"`
+	E    xmlutil.CDATA `xml:"Event"`
+	EKey xmlutil.CDATA `xml:"EventKey"`
 }
 
 type item struct {

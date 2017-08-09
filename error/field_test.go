@@ -1,9 +1,10 @@
 package error
 
 import (
-	"testing"
 	"reflect"
+	"testing"
 )
+
 func TestFieldEmptyError(t *testing.T) {
 
 	var err error
