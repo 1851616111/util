@@ -7,15 +7,18 @@ import (
 )
 
 func TestConvert(t *testing.T) {
+
 	type student struct {
-		Name string
-		Age  int
+		Name string `json:"Name"`
+		Age  int    `json:"Age"`
 	}
 
-	var stu student
+	type Data struct {
+		Data student `json:"data"`
+	}
 
 	m := map[string]interface{}{
-		"code":    0,
+		"code":    200,
 		"message": "ok",
 		"data": student{
 			Name: "michael",
@@ -23,16 +26,14 @@ func TestConvert(t *testing.T) {
 		},
 	}
 
+	var data Data
+
 	var buf bytes.Buffer
 	if err := json.NewEncoder(&buf).Encode(m); err != nil {
 		t.Fatal(err)
 	}
 
-	if err := ReadToTarget(&buf, &stu, nil); err != nil {
+	if err := ReadToTarget(&buf, &data, nil); err != nil {
 		t.Fatal(err)
-	}
-
-	if stu.Name != "michael" || stu.Age != 20 {
-		t.Fatal(stu)
 	}
 }

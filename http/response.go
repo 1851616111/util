@@ -7,12 +7,12 @@ import (
 	"net/http"
 )
 
-// Responser is a util interface for prasing data like {"code": "message", data:""}.
+// Responser is a util interface for prasing D like {"code": "message", D:""}.
 type Responser interface {
 	Error() error
 	Code() int
 	Message() string
-	Data() interface{}
+	Data() []byte
 }
 
 func ReadToTarget(src io.Reader, dst interface{}, errH func(Responser) error) error {
@@ -21,8 +21,16 @@ func ReadToTarget(src io.Reader, dst interface{}, errH func(Responser) error) er
 		handler = DefaultErrorHandler
 	}
 
-	rsp := NewResponser(dst, handler)
+	rsp := NewResponser(handler)
 	if err := json.NewDecoder(src).Decode(rsp.(*container)); err != nil {
+		return err
+	}
+
+	if err := json.Unmarshal(rsp.Data(), &(rsp.(*container).baseFiled)); err != nil {
+		return err
+	}
+
+	if err := json.Unmarshal(rsp.Data(), dst); err != nil {
 		return err
 	}
 
@@ -30,37 +38,40 @@ func ReadToTarget(src io.Reader, dst interface{}, errH func(Responser) error) er
 }
 
 // dst must be ptr type
-func NewResponser(dst interface{}, errFn func(Responser) error) Responser {
+func NewResponser(errFn func(Responser) error) Responser {
 	return &container{
-		DataStruct:   dst,
-		ErrorHandler: errFn,
+		errorHandler: errFn,
+		RawMessage:   &json.RawMessage{},
 	}
 }
 
 func (c *container) Code() int {
-	return c.C
+	return c.baseFiled.Code
 }
 
 func (c *container) Message() string {
-	return c.Msg
+	return c.baseFiled.Message
 }
 
-func (c *container) Data() interface{} {
-	return c.DataStruct
+func (c *container) Data() []byte {
+	if c.RawMessage == nil {
+		return nil
+	}
+
+	return ([]byte)(*c.RawMessage)
 }
 
 func (c *container) Error() error {
-	return c.ErrorHandler((Responser)(c))
+	return c.errorHandler((Responser)(c))
 }
 
 type container struct {
-	C          int         `json:"code"`
-	Msg        string      `json:"message"`
-	CDesc      string      `json:"codeDesc"`
-	TotalCount int         `json:"totalCount"`
-	DataStruct interface{} `json:"data"`
-
-	ErrorHandler func(Responser) error
+	*json.RawMessage
+	baseFiled struct {
+		Code    int    `json:"code"`
+		Message string `json:"message"`
+	}
+	errorHandler func(Responser) error
 }
 
 func DefaultErrorHandler(rsp Responser) error {
