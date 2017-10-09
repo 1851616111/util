@@ -21,6 +21,7 @@ type HttpSpec struct {
 	ContentType ContentType       `json:"content_type"`
 	URLParams   *Params           `json:"url_params"`
 	BodyParams  *Body             `json:"body_params"`
+	BodyObject  interface{}       `json:"body_obj"`
 	Header      map[string]string `json:"header"`
 	BasicAuth   *BasicAuth        `json:"basicauth"`
 }
@@ -31,13 +32,21 @@ func NewRequest(spec *HttpSpec) (*http.Request, error) {
 	var err error
 	switch spec.Method {
 	case "POST":
-		if spec.BodyParams != nil && len(*spec.BodyParams) > 0 {
+		if (spec.BodyObject != nil) || (spec.BodyParams != nil && len(*spec.BodyParams) > 0) {
+			var target interface{}
+			if spec.BodyObject != nil {
+				target = spec.BodyObject
+			} else {
+				target = spec.BodyParams
+			}
+
 			switch spec.ContentType {
 			case ContentType_JSON:
 				buf := &bytes.Buffer{}
 				encoder := json.NewEncoder(buf)
 				encoder.SetEscapeHTML(false)
-				if err := encoder.Encode(spec.BodyParams); err != nil {
+
+				if err := encoder.Encode(target); err != nil {
 					return nil, err
 				}
 				body = io.Reader(buf)

@@ -19,5 +19,5 @@ func ValidateInt(port int) error {
 		return Err_Format_Invalid
 	}
 
-	return  nil
+	return nil
 }

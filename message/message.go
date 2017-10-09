@@ -4,11 +4,11 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
-	"fmt"
 	"io"
 	"net/http"
 	"sync"
 
+	"fmt"
 	httputil "github.com/1851616111/util/http"
 )
 
@@ -35,18 +35,22 @@ const _Inner_Error = `{"code":1001,"message":"Internal Server Error"}`
 const _Req_Not_Find = `{"code":1004,"message":"Request Not Found"}`
 const _Param_Not_Find = `{"code":1004,"message":"Param %s Not Found"}`
 
-type msg struct {
-	Code    int         `json:"code"`
-	Data    interface{} `json:"data"`
-	Message interface{} `json:"message"`
+type Message struct {
+	Code int         `json:"code"`
+	Data interface{} `json:"data, omitempty"`
+	Msg  string      `json:"message, omitempty""`
 }
 
-func Success(w http.ResponseWriter, data []byte) {
-	httputil.Response(w, 200, generateData(data))
+func Success(w http.ResponseWriter) {
+	httputil.Response(w, 200, `{"code":1000,"message":"success"}`)
 }
 
 func SuccessI(w http.ResponseWriter, obj interface{}) error {
 	return json.NewEncoder(w).Encode(obj)
+}
+
+func SuccessS(w http.ResponseWriter, s string) {
+	httputil.Response(w, 200, fmt.Sprintf(`{"code":1000,"data":"%s",message":"success"}`, s))
 }
 
 func InnerError(w http.ResponseWriter) {
@@ -57,16 +61,21 @@ func NotFoundError(w http.ResponseWriter) {
 	httputil.Response(w, 404, message(_Req_Not_Find))
 }
 
-func ParamNotFound(w http.ResponseWriter, param string) {
-	httputil.Response(w, 400, message(fmt.Errorf(_Param_Not_Find, param)))
+//func ParamNotFound(w http.ResponseWriter, param string) {
+//	httputil.Response(w, 400, message(fmt.Errorf(_Param_Not_Find, param)))
+//}
+
+func Render(w http.ResponseWriter, msg interface{}) {
+	httputil.ResponseJson(w, 200, Message{Code: 1000, Data: msg, Msg: "success"})
+}
+
+func Error(w http.ResponseWriter, err error) {
+	httputil.ResponseJson(w, 400, Message{Code: 1004, Msg: err.Error()})
 }
 
 //{"code":1000,"data":null,"message":"success"}
-func generateData(data []byte) *bytes.Buffer {
-	buf := message(`{"code":1000,"data":`)
-	buf.Write(data)
-	buf.WriteString(`,"message":"success"}`)
-
+func generateData() *bytes.Buffer {
+	buf := message(`{"code":1000,"message":"success"}`)
 	return buf
 }
 
