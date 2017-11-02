@@ -34,6 +34,7 @@ var ERR_REQ_NOT_FOUND_ERROR error = errors.New("Request Not Found")
 const _Inner_Error = `{"code":1001,"message":"Internal Server Error"}`
 const _Req_Not_Find = `{"code":1004,"message":"Request Not Found"}`
 const _Param_Not_Find = `{"code":1004,"message":"Param %s Not Found"}`
+const _Unauthorized = `{"code":1005,"message":"Unauthorized"}`
 
 type Message struct {
 	Code int         `json:"code"`
@@ -55,6 +56,10 @@ func SuccessS(w http.ResponseWriter, s string) {
 
 func InnerError(w http.ResponseWriter) {
 	httputil.Response(w, 400, message(_Inner_Error))
+}
+
+func Unauthorized(w http.ResponseWriter) {
+	httputil.Response(w, http.StatusUnauthorized, message(_Unauthorized))
 }
 
 func NotFoundError(w http.ResponseWriter) {
