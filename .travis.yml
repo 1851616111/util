@@ -1,0 +1,9 @@
+sudo: false
+language: go
+go:
+  - 1.8.x
+go_import_path: githuh.com/1851616111/util
+
+script:
+  - go test ./...
+
