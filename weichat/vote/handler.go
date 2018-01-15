@@ -5,7 +5,6 @@ import (
 	"net/http"
 	"strconv"
 
-	"fmt"
 	httputil "github.com/1851616111/util/http"
 	"github.com/julienschmidt/httprouter"
 	"path/filepath"
