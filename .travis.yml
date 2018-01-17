@@ -4,6 +4,11 @@ go:
   - 1.8.x
 go_import_path: githuh.com/1851616111/util
 
-script:
-  - go test ./...
+before_install:
+  - go get -t -v ./...
 
+script:
+  - go test -race -coverprofile=coverage.txt -covermode=atomic
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash) -t 7fb2961f-62a1-460d-82a1-8b16de19b079
