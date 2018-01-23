@@ -15,6 +15,7 @@
 //*/
 //
 package wait
+
 //
 //import (
 //	"errors"

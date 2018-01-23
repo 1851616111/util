@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"log"
 	"net/http"
 )
 
@@ -33,6 +34,8 @@ func ReadToTarget(src io.Reader, dst interface{}, errH func(Responser) error) er
 	if err := json.Unmarshal(rsp.Data(), dst); err != nil {
 		return err
 	}
+
+	log.Printf("--------%s\n", string(rsp.Data()))
 
 	return rsp.Error()
 }

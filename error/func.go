@@ -25,3 +25,7 @@ func ParamValueInvalid(param string, min, max int) error {
 func ParamNotInValidList(param string, l ...interface{}) error {
 	return fmt.Errorf("param %s not in valid list %v", param, l)
 }
+
+func ResourcesNotExist(resources string) error {
+	return fmt.Errorf("request %s resources not exist", resources)
+}

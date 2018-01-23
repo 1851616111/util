@@ -1,9 +1,9 @@
 package http
 
 import (
-	"time"
-	"net/http"
 	"crypto/tls"
+	"net/http"
+	"time"
 )
 
 var clientTransport = &http.Transport{
