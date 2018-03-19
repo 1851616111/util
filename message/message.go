@@ -35,6 +35,7 @@ const _Inner_Error = `{"code":1001,"message":"Internal Server Error"}`
 const _Req_Not_Find = `{"code":1004,"message":"Request Not Found"}`
 const _Param_Not_Find = `{"code":1004,"message":"Param %s Not Found"}`
 const _Unauthorized = `{"code":1005,"message":"Unauthorized"}`
+const SuccessCode = 1000
 
 type Message struct {
 	Code int         `json:"code"`
