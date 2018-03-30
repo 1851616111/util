@@ -55,6 +55,10 @@ func SuccessS(w http.ResponseWriter, s string) {
 	httputil.Response(w, 200, fmt.Sprintf(`{"code":1000,"data":"%s",message":"success"}`, s))
 }
 
+func SuccessObj(w http.ResponseWriter, obj interface{}) error {
+	return json.NewEncoder(w).Encode(Message{Code: 1000, Data: obj, Msg:"success"})
+}
+
 func InnerError(w http.ResponseWriter) {
 	httputil.Response(w, 400, message(_Inner_Error))
 }
