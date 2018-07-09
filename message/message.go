@@ -56,7 +56,7 @@ func SuccessS(w http.ResponseWriter, s string) {
 }
 
 func SuccessObj(w http.ResponseWriter, obj interface{}) error {
-	return json.NewEncoder(w).Encode(Message{Code: 1000, Data: obj, Msg:"success"})
+	return json.NewEncoder(w).Encode(Message{Code: 1000, Data: obj, Msg: "success"})
 }
 
 func InnerError(w http.ResponseWriter) {

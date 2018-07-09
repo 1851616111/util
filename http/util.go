@@ -29,8 +29,8 @@ func Send(spec *HttpSpec) (*http.Response, error) {
 	return cli.Do(req)
 }
 
-type Fetcher interface{
-	FetchJson (interface{}) error
+type Fetcher interface {
+	FetchJson(interface{}) error
 }
 
 type fetcher struct {
@@ -38,7 +38,7 @@ type fetcher struct {
 	rc  io.ReadCloser
 }
 
-func (f fetcher) FetchJson (dst interface{}) error {
+func (f fetcher) FetchJson(dst interface{}) error {
 	if f.err != nil {
 		return f.err
 	}
@@ -52,7 +52,7 @@ func NewFetcher(spec *HttpSpec) (ftc fetcher) {
 	var rsp *http.Response
 	var err error
 
-	defer func(){
+	defer func() {
 		ftc.err = err
 		if rsp != nil && rsp.Body != nil {
 			ftc.rc = rsp.Body
