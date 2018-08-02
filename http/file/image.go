@@ -10,7 +10,7 @@ import (
 	"os"
 )
 
-func PostFileReader(url, field, fileName string, rc io.ReadCloser) (*http.Response, error) {
+func PostFile(url, field, fileName string, rc io.ReadCloser) (*http.Response, error) {
 	bodyBuf := &bytes.Buffer{}
 	bodyWriter := multipart.NewWriter(bodyBuf)
 
