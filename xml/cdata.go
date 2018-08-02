@@ -9,3 +9,7 @@ func (c CDATA) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 		string `xml:",cdata"`
 	}{string(c)}, start)
 }
+
+func (c CDATA) String() string {
+	return string(c)
+}

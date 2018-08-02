@@ -2,11 +2,11 @@ package http
 
 import (
 	"crypto/tls"
-	"net/http"
-	"time"
-	//"encoding/json"
 	"encoding/json"
 	"io"
+	"io/ioutil"
+	"net/http"
+	"time"
 )
 
 var clientTransport = &http.Transport{
@@ -45,6 +45,19 @@ func (f fetcher) FetchJson(dst interface{}) error {
 	defer f.rc.Close()
 
 	return json.NewDecoder(f.rc).Decode(dst)
+}
+
+func (f fetcher) FetchFile(file string) error {
+	if f.err != nil {
+		return f.err
+	}
+	defer f.rc.Close()
+
+	data, err := ioutil.ReadAll(f.rc)
+	if err != nil {
+		return err
+	}
+	return ioutil.WriteFile(file, data, 0666)
 }
 
 func NewFetcher(spec *HttpSpec) (ftc fetcher) {

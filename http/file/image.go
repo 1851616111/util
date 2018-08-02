@@ -1,13 +1,38 @@
 package file
 
 import (
-	"github.com/1851616111/util/http"
+	"bytes"
+	httput "github.com/1851616111/util/http"
 	"image/jpeg"
+	"io"
+	"mime/multipart"
+	"net/http"
 	"os"
 )
 
-func GetHttpImage(targetFile string, spec *http.HttpSpec) error {
-	rsp, err := http.Send(spec)
+func PostFileReader(url, field, fileName string, rc io.ReadCloser) (*http.Response, error) {
+	bodyBuf := &bytes.Buffer{}
+	bodyWriter := multipart.NewWriter(bodyBuf)
+
+	fileWriter, err := bodyWriter.CreateFormFile(field, fileName)
+	if err != nil {
+		return nil, err
+	}
+
+	_, err = io.Copy(fileWriter, rc)
+	if err != nil {
+		return nil, err
+	}
+	defer rc.Close()
+
+	contentType := bodyWriter.FormDataContentType()
+	bodyWriter.Close()
+
+	return http.Post(url, contentType, bodyBuf)
+}
+
+func GetHttpImage(targetFile string, spec *httput.HttpSpec) error {
+	rsp, err := httput.Send(spec)
 	if err != nil {
 		return err
 	}

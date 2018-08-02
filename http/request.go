@@ -20,7 +20,7 @@ type HttpSpec struct {
 	Method      string            `json:"method"`
 	ContentType ContentType       `json:"content_type"`
 	URLParams   *Params           `json:"url_params"`
-	BodyParams  *Body             `json:"body_params"`
+	BodyParams  Body              `json:"body_params"`
 	BodyObject  interface{}       `json:"body_obj"`
 	Header      map[string]string `json:"header"`
 	BasicAuth   *BasicAuth        `json:"basicauth"`
@@ -32,7 +32,7 @@ func NewRequest(spec *HttpSpec) (*http.Request, error) {
 	var err error
 	switch spec.Method {
 	case "POST":
-		if (spec.BodyObject != nil) || (spec.BodyParams != nil && len(*spec.BodyParams) > 0) {
+		if (spec.BodyObject != nil) || (spec.BodyParams != nil && len(spec.BodyParams) > 0) {
 			var target interface{}
 			if spec.BodyObject != nil {
 				target = spec.BodyObject
@@ -52,7 +52,7 @@ func NewRequest(spec *HttpSpec) (*http.Request, error) {
 				body = io.Reader(buf)
 			case ContentType_FORM:
 				v := url.Values{}
-				for key, value := range *spec.BodyParams {
+				for key, value := range spec.BodyParams {
 					if s, ok := value.(string); ok {
 						v.Add(key, s)
 					}
