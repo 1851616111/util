@@ -10,7 +10,7 @@ import (
 	"os"
 )
 
-func PostFile(url, field, fileName string, rc io.ReadCloser) (*http.Response, error) {
+func PostFile(url, field, fileName string, rc io.Reader) (*http.Response, error) {
 	bodyBuf := &bytes.Buffer{}
 	bodyWriter := multipart.NewWriter(bodyBuf)
 
@@ -23,7 +23,6 @@ func PostFile(url, field, fileName string, rc io.ReadCloser) (*http.Response, er
 	if err != nil {
 		return nil, err
 	}
-	defer rc.Close()
 
 	contentType := bodyWriter.FormDataContentType()
 	bodyWriter.Close()
